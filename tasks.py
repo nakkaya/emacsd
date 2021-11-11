@@ -26,6 +26,7 @@ def run(cmd, dir="."):
     subprocess.check_call(cmd, shell=True)
     os.chdir(wd)
 
+gpu_image = 'BASE_IMAGE=nvidia/cuda:11.2.0-cudnn8-runtime-ubuntu20.04'
 
 @task
 def build(ctx):
@@ -33,7 +34,7 @@ def build(ctx):
     cmd = "docker build "
     #cmd = "docker build --no-cache "
 
-    run(cmd + "-f Dockerfile " + tag("emacsd") + " .")
+    run(cmd + "-f Dockerfile " + tag("emacsd-cpu") + " .")
 
 @task
 def buildx(ctx):
@@ -41,5 +42,10 @@ def buildx(ctx):
     cmd = "docker buildx build --push "
 
     run(cmd +
-        "-f Dockerfile " + tag("emacsd") +
+        " -f Dockerfile " + tag("emacsd-gpu") +
+        " --platform linux/amd64 " +
+        " --build-arg " + gpu_image  + " .")
+
+    run(cmd +
+        "-f Dockerfile " + tag("emacsd-cpu") +
         " --platform linux/amd64 .")

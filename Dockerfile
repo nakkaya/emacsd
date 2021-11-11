@@ -1,4 +1,5 @@
-FROM ubuntu:20.04
+ARG BASE_IMAGE=ubuntu:20.04
+FROM $BASE_IMAGE
 ENV DISTRO=focal
 
 ENV USER="core" \
