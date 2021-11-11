@@ -47,8 +47,6 @@ function prompt() {
 PROMPT_COMMAND=prompt
 
 alias ls='ls --color=auto'
+alias emacs='emacsclient -s /opt/emacsd/server/emacsd --tty'
 
-if [ -S /opt/emacsd/server/emacsd ]; then
-  cd /storage/
-  emacsclient -s /opt/emacsd/server/emacsd --tty
-fi
+cd /storage/
