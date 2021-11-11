@@ -1,0 +1,2 @@
+(setq package-native-compile t)
+(load "/storage/.emacs" t)

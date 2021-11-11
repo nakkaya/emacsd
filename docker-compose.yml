@@ -1,0 +1,26 @@
+version: "3.7"
+   
+services:
+  emacs:
+    image: ghcr.io/nakkaya/emacsd:latest
+    privileged: true
+    security_opt:
+      - seccomp:unconfined
+    hostname: emacsd
+    restart: always
+    volumes:
+      - storage:/storage
+      - emacs_db:/home/nakkaya/.emacs.d
+    ports:
+      # SSH
+      - "2222:22"
+      # Webdav
+      - "1010:1010"
+      # GUI
+      - "9090:9090"
+    #environment:
+      #- PASSWD=pass
+
+volumes:
+  emacs_db:
+  storage:
