@@ -21,7 +21,7 @@ else
     export RCLONE_PASSWORD=""
 fi
 
-if [ -f /home/$USER/.bootrc ]; then
+if [ -f "/home/{$USER}/.bootrc" ]; then
   bash /home/$USER/.bootrc
 fi
 
