@@ -25,7 +25,7 @@ if [ -f "/home/${USER}/.bootrc" ]; then
   bash /home/$USER/.bootrc
 fi
 
-sudo chown -R core:core /home/core
+sudo chown -R $USER:$USER /home/$USER
 
 rclone serve \
        --addr :1010 \
