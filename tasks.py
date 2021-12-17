@@ -47,4 +47,4 @@ def buildx(ctx):
 
     run(cmd +
         "-f Dockerfile " + tag("emacsd-cpu") +
-        " --platform linux/amd64,linux/arm64 .")
+        " --platform linux/amd64 .")
