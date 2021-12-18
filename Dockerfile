@@ -105,7 +105,11 @@ RUN mk-build-deps emacs \
 # Install XPRA
 #
 RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
-    add-apt-repository "deb https://xpra.org/ $DISTRO main" && \
+    ARCH="$(dpkg --print-architecture)"; \
+    case "$ARCH" in \
+    amd64) add-apt-repository "deb https://xpra.org/ $DISTRO main" ;; \
+    arm64) add-apt-repository "deb https://xpra.org/beta/ $DISTRO main" ;; \
+    esac; \
     apt-get update && \
     apt-get install xpra xpra-html5 -y --no-install-recommends
 
