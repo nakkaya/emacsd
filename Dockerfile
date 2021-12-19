@@ -38,7 +38,7 @@ RUN apt-get install \
 	openssh-server \
 	rclone \
         apache2-utils \
-        python3 python3-pip \
+        python3 python3-dev python3-pip \
         $EMACS_BUILD_TOOLS \
 	$EMACS_BUILD_DEPS \
 	-y --no-install-recommends
