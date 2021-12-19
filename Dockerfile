@@ -38,6 +38,7 @@ RUN apt-get install \
 	openssh-server \
 	rclone \
         apache2-utils \
+        python3 python3-pip \
         $EMACS_BUILD_TOOLS \
 	$EMACS_BUILD_DEPS \
 	-y --no-install-recommends
@@ -104,6 +105,10 @@ RUN mk-build-deps emacs \
 
 # Install XPRA
 #
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
+    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
+    pip install paramiko pyinotify xdg
+
 RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
     ARCH="$(dpkg --print-architecture)"; \
     case "$ARCH" in \
