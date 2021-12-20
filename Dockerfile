@@ -103,12 +103,14 @@ RUN mk-build-deps emacs \
     cd /opt/emacsd/ && \
     rm -rf src
 
-# Install XPRA
+# Install Python
 #
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
-    pip install paramiko pyinotify xdg
+    pip install rencode paramiko pyinotify xdg
 
+# Install XPRA
+#
 RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
     ARCH="$(dpkg --print-architecture)"; \
     case "$ARCH" in \
