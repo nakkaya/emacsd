@@ -107,7 +107,7 @@ RUN mk-build-deps emacs \
 #
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
-    pip install rencode paramiko pyinotify xdg
+    pip install paramiko pyinotify xdg
 
 # Install XPRA
 #
@@ -118,7 +118,7 @@ RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
     arm64) add-apt-repository "deb https://xpra.org/beta/ $DISTRO main" ;; \
     esac; \
     apt-get update && \
-    apt-get install xpra xpra-html5 -y --no-install-recommends
+    apt-get install python-rencode xpra xpra-html5 -y --no-install-recommends
 
 RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/index.html && \
     sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/connect.html && \
