@@ -13,7 +13,7 @@ services:
       - emacs_db:/home/core/.emacs.d
     ports:
       # SSH
-      - "2222:22"
+      - "2222:2222"
       # Webdav
       - "1010:1010"
       # GUI

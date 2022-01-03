@@ -53,6 +53,6 @@ xpra \
     --start-after-connect=no \
     --start="emacs" &> /opt/emacsd/logs/xpra.log &
 
-sudo /usr/sbin/sshd
+sudo /usr/sbin/sshd -p 2222
 
 wait
