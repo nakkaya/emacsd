@@ -127,7 +127,8 @@ RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www
     rm -rf /usr/share/xpra/www/default-settings.txt* && \
     touch /usr/share/xpra/www/default-settings.txt && \
     echo 'keyboard = false' >> /usr/share/xpra/www/default-settings.txt && \
-    echo 'floating_menu = false' >> /usr/share/xpra/www/default-settings.txt
+    echo 'floating_menu = false' >> /usr/share/xpra/www/default-settings.txt && \
+    echo 'swap_keys = no' >> /usr/share/xpra/www/default-settings.txt
 
 RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
     apt-mark manual $EMACS_BUILD_DEPS && \
