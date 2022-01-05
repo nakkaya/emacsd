@@ -1,4 +1,7 @@
 #!/bin/bash
+
+source "/home/${USER}/.bashrc"
+
 set -e
 
 export EMACS_HOME_DIR=/storage/

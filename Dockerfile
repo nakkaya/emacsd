@@ -97,6 +97,7 @@ RUN mk-build-deps emacs \
     --with-gnutls=yes \
     --with-x=yes \
     --with-x-toolkit=lucid \
+    --with-jpeg=yes \
     --with-png=yes && \
     make -j$(nproc) && \
     make install && \
