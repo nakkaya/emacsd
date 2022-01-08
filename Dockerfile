@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=ubuntu:20.04
-FROM $BASE_IMAGE
+FROM $BASE_IMAGE as build
 ENV DISTRO=focal
 
 ENV USER="core" \
@@ -23,12 +23,14 @@ ENV LANG=en_US.UTF-8 \
                        pkg-config \
                        texinfo \
                        gcc-10 \
-                       g++-10" \
+                       g++-10 \
+                       libjansson-dev \
+                       libgccjit-10-dev" \
     EMACS_BUILD_DEPS="libotf-dev \
                       libotf0 \
                       libgccjit0 \
-                      libgccjit-10-dev \
-                      libjansson-dev"
+                      libjansson4 \
+                      libgccjit0"
 
 # Install Packages
 #
@@ -133,8 +135,8 @@ RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www
 
 RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
     apt-mark manual $EMACS_BUILD_DEPS && \
-    apt-get clean && \
     apt-get autoremove -y && \
+    apt-get clean && \
     apt-get autoclean 
 
 USER $USER
@@ -147,6 +149,9 @@ RUN sudo chmod +x /usr/bin/edit
 
 COPY bin/exec.sh /opt/emacsd/exec.sh
 RUN sudo chmod +x /opt/emacsd/exec.sh
+
+FROM scratch
+COPY --from=build / /
 
 WORKDIR /home/$USER/
 CMD /opt/emacsd/exec.sh

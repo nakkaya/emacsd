@@ -38,7 +38,7 @@ def build(ctx):
 @task
 def buildx(ctx):
     """Build Multi Arch Images."""
-    cmd = "docker buildx build --squash --push "
+    cmd = "docker buildx build --push "
 
     run(cmd +
         " -f Dockerfile " + tag("emacsd-gpu") +
