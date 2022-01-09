@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,11 +30,23 @@ jobs:
       - name: Install Invoke
         run: pip install invoke
 
-      # - name: Docker GHCR Login
-      #   run: docker login ghcr.io -u nakkaya --password '${{ secrets.GHCR_PASSWORD }}'
-
-      # - name: Docker Hub Login
-      #   run: docker login --username nakkaya --password '${{ secrets.DOCKER_PASSWORD }}'
-
       - name: Build Image
         run: invoke buildx
+
+  buildx_amd64_gpu:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - run: invoke buildx-amd64-gpu
+
+  buildx_amd64_cpu:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - run: invoke buildx-amd64-cpu
+
+  buildx_arm64_cpu:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - run: invoke buildx-arm64-cpu

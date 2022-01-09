@@ -35,16 +35,30 @@ def build(ctx):
     run(cmd + "-f Dockerfile " + tag("emacsd-cpu") + " .")
 
 
-@task
-def buildx(ctx):
-    """Build Multi Arch Images."""
-    cmd = "docker buildx build --push "
+buildx_cmd = "docker buildx build --push "
 
-    run(cmd +
+
+@task
+def buildx_amd64_gpu(ctx):
+    """Build adm64 Image."""
+
+    run(buildx_cmd +
         " -f Dockerfile " + tag("emacsd-gpu") +
         " --platform linux/amd64 " +
         " --build-arg " + gpu_image + " .")
 
-    run(cmd +
+
+@task
+def buildx_amd64_cpu(ctx):
+    """Build amd64 CPU Image."""
+    run(buildx_cmd +
         "-f Dockerfile " + tag("emacsd-cpu") +
-        " --platform linux/amd64,linux/arm64 .")
+        " --platform linux/amd64 .")
+
+
+@task
+def buildx_arm64_cpu(ctx):
+    """Build arm64 CPU Image."""
+    run(buildx_cmd +
+        "-f Dockerfile " + tag("emacsd-cpu") +
+        " --platform linux/arm64 .")
