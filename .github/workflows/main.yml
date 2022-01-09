@@ -30,9 +30,6 @@ jobs:
       - name: Install Invoke
         run: pip install invoke
 
-      - name: Build Image
-        run: invoke buildx
-
   buildx_amd64_gpu:
     needs: setup
     runs-on: ubuntu-latest
