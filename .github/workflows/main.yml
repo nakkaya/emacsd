@@ -9,7 +9,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup:
+  build:
+    strategy:
+      matrix:
+        build-cmd:
+          - buildx-amd64-gpu
+          - buildx-amd64-cpu
+          - buildx-arm64-cpu
+
     runs-on: ubuntu-latest
 
     steps:
@@ -30,20 +37,5 @@ jobs:
       - name: Install Invoke
         run: pip install invoke
 
-  buildx_amd64_gpu:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - run: invoke buildx-amd64-gpu
-
-  buildx_amd64_cpu:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - run: invoke buildx-amd64-cpu
-
-  buildx_arm64_cpu:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - run: invoke buildx-arm64-cpu
+      - name: Build Image
+        run: invoke ${{ matrix.build-cmd }}
