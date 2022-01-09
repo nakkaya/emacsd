@@ -139,8 +139,6 @@ RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
     apt-get clean && \
     apt-get autoclean 
 
-USER $USER
-
 # Run
 #
 
@@ -150,8 +148,13 @@ RUN sudo chmod +x /usr/bin/edit
 COPY bin/exec.sh /opt/emacsd/exec.sh
 RUN sudo chmod +x /opt/emacsd/exec.sh
 
+# Pack Image
+#
+
 FROM scratch
 COPY --from=build / /
 
+ENV USER="core"
+USER $USER
 WORKDIR /home/$USER/
 CMD /opt/emacsd/exec.sh
