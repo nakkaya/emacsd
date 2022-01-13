@@ -58,6 +58,7 @@ RUN useradd -u $UID -s /bin/bash $USER && \
     #
     mkdir -p /home/$USER/ && \
     touch /home/$USER/.sudo_as_admin_successful && \
+    touch /home/$USER/.hushlogin && \
     #
     mkdir /opt/emacsd && \
     mkdir /run/user/$UID && \
