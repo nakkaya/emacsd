@@ -49,4 +49,5 @@ PROMPT_COMMAND=prompt
 alias ls='ls --color=auto'
 alias emacs='emacsclient -s /opt/emacsd/server/emacsd --tty'
 
+echo -e "\033]0;emacsd@`hostname`\a"
 cd /storage/
