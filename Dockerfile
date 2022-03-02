@@ -116,11 +116,7 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
 # Install XPRA
 #
 RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
-    ARCH="$(dpkg --print-architecture)"; \
-    case "$ARCH" in \
-    amd64) add-apt-repository "deb https://xpra.org/ $DISTRO main" ;; \
-    arm64) add-apt-repository "deb https://xpra.org/beta/ $DISTRO main" ;; \
-    esac; \
+    add-apt-repository "deb https://xpra.org/beta/ $DISTRO main" && \
     apt-get update && \
     apt-get install python3-rencode xpra xpra-html5 -y --no-install-recommends
 
@@ -128,11 +124,9 @@ RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www
     sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/connect.html && \
     rm -rf /usr/share/xpra/www/*.br && \
     rm -rf /usr/share/xpra/www/*.gz && \
-    rm -rf /usr/share/xpra/www/default-settings.txt* && \
-    touch /usr/share/xpra/www/default-settings.txt && \
-    echo 'keyboard = false' >> /usr/share/xpra/www/default-settings.txt && \
-    echo 'floating_menu = false' >> /usr/share/xpra/www/default-settings.txt && \
-    echo 'swap_keys = no' >> /usr/share/xpra/www/default-settings.txt
+    echo 'keyboard = false' >> /etc/xpra/html5-client/default-settings.txt && \
+    echo 'floating_menu = false' >> /etc/xpra/html5-client/default-settings.txt && \
+    echo 'swap_keys = no' >> /etc/xpra/html5-client/default-settings.txt
 
 RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
     apt-mark manual $EMACS_BUILD_DEPS && \
