@@ -49,7 +49,7 @@ RUN apt-get install \
 #
 COPY conf/bashrc /home/$USER/.bashrc
 COPY conf/bash_profile /home/$USER/.bash_profile
-COPY conf/JetBrainsMono.ttf /usr/local/share/fonts
+COPY conf/JetBrainsMono.ttf /usr/local/share/fonts/
 COPY conf/emacs /home/$USER/.emacs
 
 RUN useradd -u $UID -s /bin/bash $USER && \
