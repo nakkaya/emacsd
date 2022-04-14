@@ -1,6 +1,5 @@
 ARG BASE_IMAGE=ubuntu:20.04
 FROM $BASE_IMAGE as build
-ENV DISTRO=focal
 
 ENV USER="core" \
     UID=1000 \
@@ -115,10 +114,13 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
 
 # Install XPRA
 #
+
 RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
-    add-apt-repository "deb https://xpra.org/beta/ $DISTRO main" && \
-    apt-get update && \
-    apt-get install python3-rencode xpra xpra-html5 -y --no-install-recommends
+    echo "deb https://xpra.org/beta/ $(lsb_release -c -s) main" | \
+    tee /etc/apt/sources.list.d/xpra.list && \
+    apt-get -o Acquire::AllowInsecureRepositories=true update  && \
+    apt-get -o APT::Get::AllowUnauthenticated=true \
+            install python3-rencode xpra xpra-html5 -y --no-install-recommends
 
 RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/index.html && \
     sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/connect.html && \
