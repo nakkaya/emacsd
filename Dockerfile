@@ -120,7 +120,8 @@ RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
     tee /etc/apt/sources.list.d/xpra.list && \
     apt-get -o Acquire::AllowInsecureRepositories=true update  && \
     apt-get -o APT::Get::AllowUnauthenticated=true \
-            install python3-rencode xpra xpra-html5 -y --no-install-recommends
+            install python3-rencode xpra xpra-html5 -y --no-install-recommends   && \
+    apt-mark hold xpra xpra-html5
 
 RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/index.html && \
     sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/connect.html && \
