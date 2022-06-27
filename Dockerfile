@@ -25,7 +25,10 @@ ENV LANG=en_US.UTF-8 \
                        g++-10 \
                        libjansson-dev \
                        libgccjit-10-dev" \
-    EMACS_BUILD_DEPS="libotf-dev \
+    EMACS_BUILD_DEPS="libgtk-3-dev \
+                      libharfbuzz-dev \
+                      libwebkit2gtk-4.0-dev \
+                      libotf-dev \
                       libotf0 \
                       libgccjit0 \
                       libjansson4 \
@@ -98,7 +101,10 @@ RUN mk-build-deps emacs \
     --with-libotf \
     --with-gnutls=yes \
     --with-x=yes \
-    --with-x-toolkit=lucid \
+    --with-cairo \
+    --with-xwidgets \
+    --with-x-toolkit=gtk3 \
+    --with-harfbuzz \
     --with-jpeg=yes \
     --with-png=yes && \
     make -j$(nproc) && \
@@ -110,6 +116,7 @@ RUN mk-build-deps emacs \
 #
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
+    python -m pip install pip setuptools --upgrade && \
     pip install paramiko pyinotify xdg
 
 # Install XPRA
