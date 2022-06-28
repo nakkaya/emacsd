@@ -27,6 +27,7 @@ ENV LANG=en_US.UTF-8 \
                        libgccjit-10-dev" \
     EMACS_BUILD_DEPS="libgtk-3-dev \
                       libharfbuzz-dev \
+                      libwebkit2gtk-4.0 \
                       libwebkit2gtk-4.0-dev \
                       libotf-dev \
                       libotf0 \
