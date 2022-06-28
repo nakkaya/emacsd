@@ -5,11 +5,10 @@
 A Docker image for running Emacs 28 `--with-native-compilation`. 
 There is a sample `docker-compose.yml` file, that will launch a web
 based interface for GUI access and SSH for TUI based access that can
-be used on remote machines. If you have `python` `invoke` installed
-these can be launched using,
+be used on remote machines.
 
     # For Web & GUI Interface (By attaching using xpra)
-    invoke up
+    docker-compose up -d
     # then
     xpra attach tcp://127.0.0.1:9090 --window-close=disconnect
     # or
