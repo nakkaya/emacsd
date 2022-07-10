@@ -31,7 +31,7 @@ fi
 sudo chown -R $USER:$USER /home/$USER
 
 rclone serve \
-       --addr :1010 \
+       --addr :4242 \
        $RCLONE_PASSWORD \
        --dir-cache-time 5s \
        --dir-perms 0755 \

@@ -14,10 +14,10 @@ services:
     ports:
       # SSH
       - "2222:2222"
-      # Webdav
-      - "1010:1010"
       # GUI
       - "9090:9090"
+      # Webdav
+      - "4242:4242"
     #environment:
       #- PASSWD=pass
 
