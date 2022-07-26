@@ -43,10 +43,16 @@ RUN apt-get install \
 	openssh-server \
 	rclone \
         apache2-utils \
-        python3 python3-dev python3-pip \
+        python3 python3-dev python3-pip python3-setuptools \
+        python3-paramiko python3-pyinotify python3-xdg python3-rencode \
         $EMACS_BUILD_TOOLS \
 	$EMACS_BUILD_DEPS \
 	-y --no-install-recommends
+
+# Install Python
+#
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
+    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 
 # Setup User
 #
@@ -113,22 +119,14 @@ RUN mk-build-deps emacs \
     cd /opt/emacsd/ && \
     rm -rf src
 
-# Install Python
-#
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
-    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
-    python -m pip install pip setuptools --upgrade && \
-    pip install paramiko pyinotify xdg
-
 # Install XPRA
 #
-
 RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
     echo "deb https://xpra.org/beta/ $(lsb_release -c -s) main" | \
     tee /etc/apt/sources.list.d/xpra.list && \
-    apt-get -o Acquire::AllowInsecureRepositories=true update  && \
-    apt-get -o APT::Get::AllowUnauthenticated=true \
-            install python3-rencode xpra xpra-html5 -y --no-install-recommends   && \
+    apt-get update  && \
+    apt-get install xpra xpra-html5 \
+    -y --no-install-recommends   && \
     apt-mark hold xpra xpra-html5
 
 RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/index.html && \
