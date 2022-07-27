@@ -54,6 +54,24 @@ RUN apt-get install \
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 
+# Install XPRA
+#
+RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
+    echo "deb https://xpra.org/ $(lsb_release -c -s) main" | \
+    tee /etc/apt/sources.list.d/xpra.list && \
+    apt-get update  && \
+    apt-get install xpra xpra-html5 \
+    -y --no-install-recommends   && \
+    apt-mark hold xpra xpra-html5
+
+RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/index.html && \
+    sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/connect.html && \
+    rm -rf /usr/share/xpra/www/*.br && \
+    rm -rf /usr/share/xpra/www/*.gz && \
+    echo 'keyboard = false' >> /etc/xpra/html5-client/default-settings.txt && \
+    echo 'floating_menu = false' >> /etc/xpra/html5-client/default-settings.txt && \
+    echo 'swap_keys = no' >> /etc/xpra/html5-client/default-settings.txt
+
 # Setup User
 #
 COPY conf/bashrc /home/$USER/.bashrc
@@ -119,29 +137,12 @@ RUN mk-build-deps emacs \
     cd /opt/emacsd/ && \
     rm -rf src
 
-# Install XPRA
-#
-RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
-    echo "deb https://xpra.org/beta/ $(lsb_release -c -s) main" | \
-    tee /etc/apt/sources.list.d/xpra.list && \
-    apt-get update  && \
-    apt-get install xpra xpra-html5 \
-    -y --no-install-recommends   && \
-    apt-mark hold xpra xpra-html5
-
-RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/index.html && \
-    sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/connect.html && \
-    rm -rf /usr/share/xpra/www/*.br && \
-    rm -rf /usr/share/xpra/www/*.gz && \
-    echo 'keyboard = false' >> /etc/xpra/html5-client/default-settings.txt && \
-    echo 'floating_menu = false' >> /etc/xpra/html5-client/default-settings.txt && \
-    echo 'swap_keys = no' >> /etc/xpra/html5-client/default-settings.txt
 
 RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
     apt-mark manual $EMACS_BUILD_DEPS && \
     apt-get autoremove -y && \
     apt-get clean && \
-    apt-get autoclean 
+    apt-get autoclean
 
 # Run
 #
