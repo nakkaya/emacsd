@@ -9,7 +9,7 @@ def tag(n):
     return ("--tag ghcr.io/nakkaya/" + n + ":latest ")
 
 
-gpu_image = 'BASE_IMAGE=nvidia/cuda:11.2.0-cudnn8-runtime-ubuntu20.04'
+gpu_image = 'BASE_IMAGE=nvidia/cuda:11.4.0-cudnn8-runtime-ubuntu20.04'
 
 
 def docker(builder, type, *arg):
