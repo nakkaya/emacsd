@@ -30,6 +30,9 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@master
 
+      - name: Docker Hub Login
+        run: docker login ghcr.io -u nakkaya --password '${{ secrets.DOCKER_PASSWORD }}'
+
       - name: Docker GHCR Login
         run: docker login ghcr.io -u nakkaya --password '${{ secrets.GHCR_PASSWORD }}'
 
