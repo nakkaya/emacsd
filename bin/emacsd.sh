@@ -1,14 +1,10 @@
 #!/bin/bash
 
-source "/home/${USER}/.bashrc"
-
 set -e
 
-export EMACS_HOME_DIR=/storage/
-export TERM=xterm-256color
-
-XPRA_DISPLAY=42
-
+#
+# Init System
+#
 if [[ -v PASSWD ]]; then
     echo $USER:$PASSWD | sudo chpasswd
 
@@ -24,12 +20,30 @@ else
     export RCLONE_PASSWORD=""
 fi
 
+sudo chown -R $USER:$USER /home/$USER
+
+export EMACS_HOME_DIR=/storage/
+
+#
+# Load User RC Files
+#
+source "/home/${USER}/.bashrc"
+
+if [ -f "/storage/.bashrc" ]; then
+  source /storage/.bashrc
+fi
+
 if [ -f "/home/${USER}/.bootrc" ]; then
   bash /home/$USER/.bootrc
 fi
 
-sudo chown -R $USER:$USER /home/$USER
+if [ -f "/storage/.bootrc" ]; then
+  bash /storage/.bootrc
+fi
 
+#
+# Boot Services
+#
 rclone serve \
        --addr :4242 \
        $RCLONE_PASSWORD \
@@ -40,7 +54,7 @@ rclone serve \
 
 xpra \
     --socket-dir=/tmp/xprad/ \
-    start :$XPRA_DISPLAY \
+    start :42 \
     --bind-tcp=$XPRA_ADDR \
     --html=on \
     --microphone=no \
@@ -59,3 +73,4 @@ xpra \
 sudo /usr/sbin/sshd -p 2222
 
 wait
+

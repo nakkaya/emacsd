@@ -150,8 +150,8 @@ RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
 COPY bin/edit.sh /usr/bin/edit
 RUN sudo chmod +x /usr/bin/edit
 
-COPY bin/exec.sh /opt/emacsd/exec.sh
-RUN sudo chmod +x /opt/emacsd/exec.sh
+COPY bin/emacsd.sh /usr/bin/emacsd
+RUN sudo chmod +x /usr/bin/emacsd
 
 # Pack Image
 #
@@ -161,5 +161,5 @@ COPY --from=build / /
 
 ENV USER="core"
 USER $USER
-WORKDIR /home/$USER/
-CMD /opt/emacsd/exec.sh
+WORKDIR /storage
+CMD ["emacsd"]
