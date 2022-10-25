@@ -14,7 +14,7 @@ def tag(n):
             "--tag nakkaya/" + n + ":" + t_str + " ")
 
 
-gpu_image = 'BASE_IMAGE=nvidia/cuda:11.4.0-cudnn8-runtime-ubuntu20.04'
+gpu_image = 'BASE_IMAGE=nvidia/cuda:11.6.0-cudnn8-runtime-ubuntu20.04'
 
 
 def run(cmd, dir="."):
