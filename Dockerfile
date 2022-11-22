@@ -40,7 +40,7 @@ ENV LANG=en_US.UTF-8 \
 RUN apt-get install \
 	sudo \
 	git \
-	openssh-server \
+	openssh-server mosh \
 	rclone \
         apache2-utils \
         python3 python3-dev python3-pip python3-setuptools \
