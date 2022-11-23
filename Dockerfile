@@ -55,7 +55,8 @@ RUN apt-get install \
     protobuf-compiler libprotobuf-dev \
     libncurses5-dev \
     libssl-dev \
-    -y --no-install-recommends && \
+    -y && \
+    #-y --no-install-recommends && \
     git clone https://github.com/mobile-shell/mosh && \
     cd mosh && \
     ./autogen.sh && CC=/usr/bin/gcc-10 CXX=/usr/bin/gcc-10 CFLAGS="-O3 -fomit-frame-pointer" ./configure && \
