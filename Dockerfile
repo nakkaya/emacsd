@@ -49,6 +49,11 @@ RUN apt-get install \
 	$EMACS_BUILD_DEPS \
 	-y --no-install-recommends
 
+ENV CXX=/usr/bin/g++-10 \
+    CXXFLAGS="-O3 -fomit-frame-pointer" \
+    CC=/usr/bin/gcc-10 \
+    CFLAGS="-O3 -fomit-frame-pointer"
+
 # Install Mosh
 #
 RUN apt-get install \
@@ -58,7 +63,7 @@ RUN apt-get install \
     -y --no-install-recommends && \
     git clone https://github.com/mobile-shell/mosh && \
     cd mosh && \
-    ./autogen.sh && CXX=/usr/bin/g++-10 CXXFLAGS="-O3 -fomit-frame-pointer" ./configure && \
+    ./autogen.sh && ./configure && \
     make && make install && \
     cd ../ && rm -rf mosh
 
@@ -127,7 +132,7 @@ RUN mk-build-deps emacs \
     git clone --depth 1 --branch emacs-28 https://git.savannah.gnu.org/git/emacs.git /opt/emacsd/src && \
     cd /opt/emacsd/src && \
     ./autogen.sh && \
-    CC=/usr/bin/gcc-10 CFLAGS="-O3 -fomit-frame-pointer" ./configure \
+    ./configure \
     --without-all \
     --with-zlib \
     --with-native-compilation \
