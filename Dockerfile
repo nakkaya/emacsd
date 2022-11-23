@@ -55,11 +55,10 @@ RUN apt-get install \
     protobuf-compiler libprotobuf-dev \
     libncurses5-dev \
     libssl-dev \
-    -y && \
-    #-y --no-install-recommends && \
+    -y --no-install-recommends && \
     git clone https://github.com/mobile-shell/mosh && \
     cd mosh && \
-    ./autogen.sh && CC=/usr/bin/gcc-10 CXX=/usr/bin/g++-10 CFLAGS="-O3 -fomit-frame-pointer" ./configure && \
+    ./autogen.sh && CXX=/usr/bin/g++-10 CXXFLAGS="-O3 -fomit-frame-pointer" ./configure && \
     make && make install && \
     cd ../ && rm -rf mosh
 
@@ -128,7 +127,7 @@ RUN mk-build-deps emacs \
     git clone --depth 1 --branch emacs-28 https://git.savannah.gnu.org/git/emacs.git /opt/emacsd/src && \
     cd /opt/emacsd/src && \
     ./autogen.sh && \
-    CC=/usr/bin/gcc-10 CXX=/usr/bin/gcc-10 CFLAGS="-O3 -fomit-frame-pointer" ./configure \
+    CC=/usr/bin/gcc-10 CFLAGS="-O3 -fomit-frame-pointer" ./configure \
     --without-all \
     --with-zlib \
     --with-native-compilation \
