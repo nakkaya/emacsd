@@ -58,7 +58,7 @@ RUN apt-get install \
     -y --no-install-recommends && \
     git clone https://github.com/mobile-shell/mosh && \
     cd mosh && \
-    ./autogen.sh && ./configure && \
+    ./autogen.sh && CC=/usr/bin/gcc-10 CXX=/usr/bin/gcc-10 CFLAGS="-O3 -fomit-frame-pointer" ./configure && \
     make && make install && \
     cd ../ && rm -rf mosh
 
