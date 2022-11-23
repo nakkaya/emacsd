@@ -40,7 +40,7 @@ ENV LANG=en_US.UTF-8 \
 RUN apt-get install \
 	sudo \
 	git \
-	openssh-server mosh \
+	openssh-server \
 	rclone \
         apache2-utils \
         python3 python3-dev python3-pip python3-setuptools \
@@ -48,6 +48,19 @@ RUN apt-get install \
         $EMACS_BUILD_TOOLS \
 	$EMACS_BUILD_DEPS \
 	-y --no-install-recommends
+
+# Install Mosh
+#
+RUN apt-get install \
+    protobuf-compiler libprotobuf-dev \
+    libncurses5-dev \
+    libssl-dev \
+    -y --no-install-recommends && \
+    git clone https://github.com/mobile-shell/mosh && \
+    cd mosh && \
+    ./autogen.sh && ./configure && \
+    make && make install && \
+    cd ../ && rm -rf mosh
 
 # Install Python
 #
