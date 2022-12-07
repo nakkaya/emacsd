@@ -67,5 +67,3 @@ fi
 
 alias ls='ls --color=auto'
 alias emacs='SSH_TTY=`tty` emacsclient -s /opt/emacsd/server/emacsd --tty'
-
-cd /storage/
