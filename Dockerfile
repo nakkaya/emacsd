@@ -129,7 +129,7 @@ RUN mk-build-deps emacs \
     --install \
     --remove \
     --tool='apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends --yes' && \
-    git clone --depth 1 --branch emacs-28 https://git.savannah.gnu.org/git/emacs.git /opt/emacsd/src && \
+    git clone --depth 1 --branch emacs-28.2 https://git.savannah.gnu.org/git/emacs.git /opt/emacsd/src && \
     cd /opt/emacsd/src && \
     ./autogen.sh && \
     ./configure \
