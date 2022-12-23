@@ -33,6 +33,7 @@ ENV LANG=en_US.UTF-8 \
                       libotf0 \
                       libgccjit0 \
                       libjansson4 \
+                      libm17n-0 \
                       libgccjit0"
 
 # Install Packages
@@ -133,7 +134,6 @@ RUN mk-build-deps emacs \
     cd /opt/emacsd/src && \
     ./autogen.sh && \
     ./configure \
-    --without-all \
     --with-zlib \
     --with-native-compilation \
     --with-modules \
