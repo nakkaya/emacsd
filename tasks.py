@@ -22,7 +22,7 @@ def run(cmd, dir="."):
     os.chdir(wd)
 
 
-def docker(builder, type, *arg):
+def docker(builder, *arg):
     """Run docker command."""
     cmd = ("docker " + builder +
            " -f Dockerfile " + tag("emacsd") +
