@@ -14,9 +14,6 @@ def tag(n):
             "--tag nakkaya/" + n + ":" + t_str + " ")
 
 
-gpu_image = 'BASE_IMAGE=nvidia/cuda:11.6.0-cudnn8-runtime-ubuntu20.04'
-
-
 def run(cmd, dir="."):
     """Run cmd in dir."""
     wd = os.getcwd()
@@ -28,26 +25,16 @@ def run(cmd, dir="."):
 def docker(builder, type, *arg):
     """Run docker command."""
     cmd = ("docker " + builder +
-           " -f Dockerfile " + tag("emacsd-" + type) +
+           " -f Dockerfile " + tag("emacsd") +
            " ".join(arg) + " .")
     run(cmd)
 
 
+# sudo apt-get install -y qemu qemu-user-static
+# docker buildx create --use --name multi-arch-builder
 @task
-def build_cpu(ctx):
-    """Build CPU Image."""
-    docker("build", "cpu")
-
-
-@task
-def build_gpu(ctx):
-    """Build GPU Image."""
-    docker("build", "gpu", "--build-arg", gpu_image)
-    run("docker push --all-tags nakkaya/emacsd-gpu")
-    run("docker push --all-tags ghcr.io/nakkaya/emacsd-gpu")
-
-
-@task
-def buildx_cpu(ctx):
+def build(ctx):
     """Build Multi Arch CPU Image."""
-    docker("buildx build --push", "cpu", "--platform linux/amd64,linux/arm64")
+    os.environ["BUILDKIT_PROGRESS"] = "plain"
+    docker("buildx build --push", "--platform linux/amd64,linux/arm64")
+    #docker("buildx build ", "--platform linux/amd64,linux/arm64")
