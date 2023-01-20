@@ -150,7 +150,7 @@ RUN mk-build-deps emacs \
     --with-harfbuzz \
     --with-jpeg=yes \
     --with-png=yes && \
-    make -j$N_CPU && \
+    make -j$(nproc) && \
     make install && \
     cd /opt/emacsd/ && \
     rm -rf src
