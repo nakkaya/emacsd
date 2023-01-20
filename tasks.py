@@ -34,7 +34,7 @@ def docker(builder, *arg):
 # docker run -it --rm --privileged multiarch/qemu-user-static --credential yes --persistent yes # noqa
 # docker buildx create --use --name multi-arch-builder
 @task
-def build(ctx, push=False):
+def build(ctx, parallel_build=False, push=False):
     """Build Multi Arch CPU Image."""
     os.environ["BUILDKIT_PROGRESS"] = "plain"
 
@@ -42,6 +42,10 @@ def build(ctx, push=False):
     if push:
         cmd = cmd + " --push"
 
-    docker(cmd,
-           "--platform linux/amd64,linux/arm64",
-           " --build-arg N_CPU=" + str(multiprocessing.cpu_count()))
+    build_args = ""
+    if parallel_build:
+        build_args = build_args + " --build-arg N_CPU=" + str(multiprocessing.cpu_count())
+    else:
+        build_args = build_args + " --build-arg N_CPU=1"
+
+    docker(cmd, "--platform linux/amd64,linux/arm64", build_args)
