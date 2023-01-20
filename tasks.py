@@ -3,6 +3,7 @@
 import os
 from invoke import task
 import subprocess
+import multiprocessing
 from datetime import datetime
 
 
@@ -30,11 +31,17 @@ def docker(builder, *arg):
     run(cmd)
 
 
-# sudo apt-get install -y qemu qemu-user-static
+# docker run -it --rm --privileged multiarch/qemu-user-static --credential yes --persistent yes # noqa
 # docker buildx create --use --name multi-arch-builder
 @task
-def build(ctx):
+def build(ctx, push=False):
     """Build Multi Arch CPU Image."""
     os.environ["BUILDKIT_PROGRESS"] = "plain"
-    docker("buildx build --push", "--platform linux/amd64,linux/arm64")
-    # docker("buildx build ", "--platform linux/amd64,linux/arm64")
+
+    cmd = "buildx build"
+    if push:
+        cmd = cmd + " --push"
+
+    docker(cmd,
+           "--platform linux/amd64,linux/arm64",
+           " --build-arg N_CPU=" + str(multiprocessing.cpu_count()))
