@@ -10,11 +10,6 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        build-cmd:
-          - build --push
-
     runs-on: ubuntu-latest
 
     steps:
@@ -39,4 +34,4 @@ jobs:
         run: pip install invoke
 
       - name: Build Image
-        run: invoke ${{ matrix.build-cmd }}
+        run: invoke build --push
