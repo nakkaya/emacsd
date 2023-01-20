@@ -37,4 +37,4 @@ def build(ctx):
     """Build Multi Arch CPU Image."""
     os.environ["BUILDKIT_PROGRESS"] = "plain"
     docker("buildx build --push", "--platform linux/amd64,linux/arm64")
-    #docker("buildx build ", "--platform linux/amd64,linux/arm64")
+    # docker("buildx build ", "--platform linux/amd64,linux/arm64")
