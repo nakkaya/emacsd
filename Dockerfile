@@ -46,6 +46,7 @@ RUN apt-get install \
         apache2-utils \
         python3 python3-dev python3-pip python3-setuptools \
         python3-paramiko python3-pyinotify python3-xdg python3-rencode \
+        ncurses-term \
         $EMACS_BUILD_TOOLS \
 	$EMACS_BUILD_DEPS \
 	-y --no-install-recommends
