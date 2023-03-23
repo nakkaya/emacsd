@@ -3,10 +3,8 @@ name: CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-  workflow_dispatch:
+  schedule:
+    - cron: '00 00 * * 1'  # Run at 00:00 on Monday.
 
 jobs:
   build:
