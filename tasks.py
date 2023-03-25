@@ -16,17 +16,19 @@ def tag(n):
 # docker run -it --rm --privileged multiarch/qemu-user-static --credential yes --persistent yes # noqa
 # docker buildx create --use --name multi-arch-builder
 @task
-def build(ctx, push=False):
+def build(c, march=False, push=False):
     """Build Multi Arch CPU Image."""
     os.environ["BUILDKIT_PROGRESS"] = "plain"
 
-    cmd = "buildx build"
+    if march:
+        cmd = "build"
+        platform = " "
+    else:
+        cmd = "buildx build"
 
-    if push:
-        cmd = cmd + " --push"
+        if push:
+            cmd = cmd + " --push"
 
-    cmd = ("docker " + cmd +
-           " -f Dockerfile " + tag("emacsd") +
-           "--platform linux/amd64,linux/arm64" + " .")
+        platform = "--platform linux/amd64,linux/arm64"
 
-    ctx.run(cmd)
+    c.run("docker " + cmd + " -f Dockerfile " + tag("emacsd") + platform + " .") # noqa
