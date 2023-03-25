@@ -2,15 +2,13 @@ version: "3.7"
    
 services:
   emacs:
-    image: ghcr.io/nakkaya/emacsd-cpu:latest
+    image: ghcr.io/nakkaya/emacsd:latest
     privileged: true
     security_opt:
       - seccomp:unconfined
-    hostname: emacsd
     restart: always
     volumes:
-      - storage:/storage
-      - emacs_db:/home/core/.emacs.d
+      - home:/home/core
     ports:
       # SSH
       - "2222:2222"
@@ -22,5 +20,4 @@ services:
       #- PASSWD=pass
 
 volumes:
-  emacs_db:
-  storage:
+  home:

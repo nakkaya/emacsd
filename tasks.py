@@ -2,7 +2,6 @@
 
 import os
 from invoke import task
-import subprocess
 from datetime import datetime
 
 
@@ -14,22 +13,6 @@ def tag(n):
             "--tag nakkaya/" + n + ":" + t_str + " ")
 
 
-def run(cmd, dir="."):
-    """Run cmd in dir."""
-    wd = os.getcwd()
-    os.chdir(dir)
-    subprocess.check_call(cmd, shell=True)
-    os.chdir(wd)
-
-
-def docker(builder, *arg):
-    """Run docker command."""
-    cmd = ("docker " + builder +
-           " -f Dockerfile " + tag("emacsd") +
-           " ".join(arg) + " .")
-    run(cmd)
-
-
 # docker run -it --rm --privileged multiarch/qemu-user-static --credential yes --persistent yes # noqa
 # docker buildx create --use --name multi-arch-builder
 @task
@@ -38,7 +21,12 @@ def build(ctx, push=False):
     os.environ["BUILDKIT_PROGRESS"] = "plain"
 
     cmd = "buildx build"
+
     if push:
         cmd = cmd + " --push"
 
-    docker(cmd, "--platform linux/amd64,linux/arm64")
+    cmd = ("docker " + cmd +
+           " -f Dockerfile " + tag("emacsd") +
+           "--platform linux/amd64,linux/arm64" + " .")
+
+    ctx.run(cmd)

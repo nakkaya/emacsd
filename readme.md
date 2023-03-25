@@ -18,6 +18,4 @@ Image runs as user `core` replace your username as required. This
 image can be extended to include your development environment See
 [emacs/devops/docker at master ·
 nakkaya/emacs](https://github.com/nakkaya/emacs/tree/master/devops/docker)
-for sample `Dockerfile`s. There are two images with suffix `-cpu` and
-`-gpu`. `-cpu` image is built from base `ubuntu:20.04`, `-gpu` is
-built from `nvidia/cuda:11.2.0-cudnn8-runtime-ubuntu20.04` base image.
+for sample `Dockerfile`s.
