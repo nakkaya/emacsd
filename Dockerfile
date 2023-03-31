@@ -36,22 +36,25 @@ ENV LANG=en_US.UTF-8 \
                       libgccjit0 \
                       libjansson4 \
                       libm17n-0 \
+                      libgif-dev \
+		      libxpm-dev \
                       libgccjit0"
 
 # Install Packages
 #
 RUN apt-get install \
-	sudo \
-	git \
-	openssh-server \
-	rclone \
-        apache2-utils \
-        python3 python3-dev python3-pip python3-setuptools \
-        python3-paramiko python3-pyinotify python3-xdg python3-rencode \
-        ncurses-term \
-        $EMACS_BUILD_TOOLS \
-	$EMACS_BUILD_DEPS \
-	-y --no-install-recommends
+    supervisor \
+    sudo \
+    git \
+    openssh-server \
+    rclone \
+    apache2-utils \
+    python3 python3-dev python3-pip python3-setuptools \
+    python3-paramiko python3-pyinotify python3-xdg python3-rencode \
+    ncurses-term \
+    $EMACS_BUILD_TOOLS \
+    $EMACS_BUILD_DEPS \
+    -y --no-install-recommends
 
 ENV CXX=/usr/bin/g++-10 \
     CXXFLAGS="-O3 -fomit-frame-pointer" \
@@ -137,6 +140,7 @@ RUN mk-build-deps emacs \
     cd /opt/emacsd/src && \
     ./autogen.sh && \
     ./configure \
+    --without-sound \
     --with-zlib \
     --with-native-compilation \
     --with-modules \
@@ -171,6 +175,7 @@ RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
 COPY bin/edit.sh /usr/bin/edit
 RUN sudo chmod +x /usr/bin/edit
 
+COPY conf/supervisord.conf /etc/supervisor/supervisord.conf
 COPY bin/emacsd.sh /usr/bin/emacsd
 RUN sudo chmod +x /usr/bin/emacsd
 

@@ -25,24 +25,6 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-if [ -f ~/.ssh/config ];
-then
-    function _ssh_completion() {
-        perl -ne 'print "$1 " if /^[Hh]ost (.+)$/' ~/.ssh/config
-    }
-    complete -W "$(_ssh_completion)" ssh
-fi
-
-if [ -f /etc/bash_completion.d/git-prompt ];
-then
-    source /etc/bash_completion.d/git-prompt
-fi
-
-if [ -f /storage/.bashrc ];
-then
-    source /storage/.bashrc
-fi
-
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     *-color|*-256color) color_prompt=yes;;
@@ -68,4 +50,4 @@ then
 fi
 
 alias ls='ls --color=auto'
-alias emacs='SSH_TTY=`tty` emacsclient -s /opt/emacsd/server/emacsd --tty'
+alias emacs='SSH_TTY=`tty` /usr/local/bin/emacs -nw'
