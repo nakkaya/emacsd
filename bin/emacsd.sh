@@ -24,4 +24,9 @@ sudo chown -R $USER:$USER /home/$USER
 
 export EMACS_HOME_DIR=/storage/
 
+if [ -f "/tmp/.X42-lock" ]; then
+    rm /tmp/.X42-lock
+fi
+
+
 supervisord
