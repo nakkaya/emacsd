@@ -50,4 +50,4 @@ then
 fi
 
 alias ls='ls --color=auto'
-alias emacs='SSH_TTY=`tty` /usr/local/bin/emacs -nw'
+alias emacs='SSH_TTY=`tty` /usr/local/bin/emacsclient -s /opt/emacsd/server/emacsd --tty'
