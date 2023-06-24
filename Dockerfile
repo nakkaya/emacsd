@@ -178,6 +178,8 @@ RUN sudo chmod +x /usr/bin/edit
 COPY conf/supervisord.conf /etc/supervisor/supervisord.conf
 COPY bin/emacsd.sh /usr/bin/emacsd
 RUN sudo chmod +x /usr/bin/emacsd
+COPY bin/emacsd_client.sh /usr/bin/emacsd_client
+RUN sudo chmod +x /usr/bin/emacsd_client
 
 # Pack Image
 #
