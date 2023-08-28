@@ -87,7 +87,7 @@ RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
     apt-get update  && \
     apt-get install xpra xpra-html5 \
     -y --no-install-recommends   && \
-    apt-mark hold xpra xpra-html5
+    apt-mark hold xpra xpra-x11 xpra-html5
 
 RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/index.html && \
     sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/connect.html && \
