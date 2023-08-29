@@ -85,7 +85,7 @@ RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
     echo "deb https://xpra.org/ $(lsb_release -c -s) main" | \
     tee /etc/apt/sources.list.d/xpra.list && \
     apt-get update  && \
-    apt-get install xpra xpra-html5 \
+    apt-get install xpra xpra-x11 xpra-html5 \
     -y --no-install-recommends   && \
     apt-mark hold xpra xpra-x11 xpra-html5
 
