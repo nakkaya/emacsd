@@ -167,7 +167,8 @@ RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
     apt-mark manual $EMACS_BUILD_DEPS && \
     apt-get autoremove -y && \
     apt-get clean && \
-    apt-get autoclean
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Run
 #
