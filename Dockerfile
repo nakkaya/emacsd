@@ -27,11 +27,9 @@ ENV LANG=en_US.UTF-8 \
                        libotf-dev \
                        libharfbuzz-dev \
                        libjansson-dev \
-                       libwebkit2gtk-4.0-dev \
                        libgccjit-10-dev" \
     EMACS_BUILD_DEPS="libgtk-3-0 \
                       libharfbuzz-bin \
-                      libwebkit2gtk-4.0 \
                       libotf-bin \
                       libgccjit0 \
                       libjansson4 \
@@ -152,7 +150,6 @@ RUN mk-build-deps emacs \
     --with-gnutls=yes \
     --with-x=yes \
     --with-cairo \
-    --with-xwidgets \
     --with-x-toolkit=gtk3 \
     --with-harfbuzz \
     --with-jpeg=yes \
