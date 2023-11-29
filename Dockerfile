@@ -23,20 +23,12 @@ ENV LANG=en_US.UTF-8 \
                        texinfo \
                        gcc-10 \
                        g++-10 \
-                       libgtk-3-dev \
-                       libotf-dev \
-                       libharfbuzz-dev \
-                       libjansson-dev \
                        libgccjit-10-dev" \
-    EMACS_BUILD_DEPS="libgtk-3-0 \
-                      libharfbuzz-bin \
-                      libotf-bin \
-                      libgccjit0 \
+    EMACS_BUILD_DEPS="libgccjit0 \
                       libjansson4 \
                       libm17n-0 \
-                      libgif-dev \
-		      libxpm-dev \
-                      libgccjit0"
+                      libgif7 \
+                      libotf1"
 
 # Install Packages
 #
