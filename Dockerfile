@@ -23,12 +23,14 @@ ENV LANG=en_US.UTF-8 \
                        texinfo \
                        gcc-10 \
                        g++-10 \
-                       libgccjit-10-dev" \
+                       libgccjit-10-dev \
+                       libsqlite3-dev" \
     EMACS_BUILD_DEPS="libgccjit0 \
                       libjansson4 \
                       libm17n-0 \
                       libgif7 \
-                      libotf1"
+                      libotf1 \
+                      libsqlite3-0"
 
 # Install Packages
 #
@@ -137,6 +139,7 @@ RUN mk-build-deps emacs \
     --with-json \
     --with-mailutils \
     --with-xml2 \
+    --with-sqlite3=yes \
     --with-xft \
     --with-libotf \
     --with-gnutls=yes \
