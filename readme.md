@@ -19,4 +19,3 @@ image can be extended to include your development environment See
 [emacs/devops/docker at master ·
 nakkaya/emacs](https://github.com/nakkaya/emacs/tree/master/devops/docker)
 for sample `Dockerfile`s.
-
