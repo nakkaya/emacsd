@@ -20,7 +20,9 @@ else
     export RCLONE_PASSWORD=""
 fi
 
-sudo chown -R $USER:$USER /home/$USER
+if [[ -v FIX_HOME_OWNER ]]; then
+    sudo chown -R $USER:$USER /home/$USER
+fi
 
 export EMACS_HOME_DIR=/storage/
 
