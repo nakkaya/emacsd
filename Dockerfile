@@ -73,8 +73,9 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
 
 # Install XPRA
 #
-RUN wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
-    echo "deb https://xpra.org/ $(lsb_release -c -s) main" | \
+RUN curl -fsSL https://xpra.org/gpg.asc | \
+    sudo gpg --dearmor -o /etc/apt/keyrings/xpra-apt-keyring.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/xpra-apt-keyring.gpg] https://xpra.org/ $(lsb_release -c -s) main" | \
     tee /etc/apt/sources.list.d/xpra.list && \
     apt-get update  && \
     apt-get install xpra xpra-x11 xpra-html5 \
