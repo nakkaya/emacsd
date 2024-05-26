@@ -35,6 +35,7 @@ ENV LANG=en_US.UTF-8 \
 # Install Packages
 #
 RUN apt-get install \
+    curl \
     supervisor \
     sudo \
     git \
