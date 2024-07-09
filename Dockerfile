@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=ubuntu:22.04
-FROM $BASE_IMAGE as build
+FROM $BASE_IMAGE AS build
 
 ENV USER="core" \
     UID=1000 \
@@ -42,6 +42,8 @@ RUN apt-get install \
     openssh-server \
     rclone \
     apache2-utils \
+    sslh \
+    haproxy \
     python3 python3-dev python3-pip python3-setuptools \
     python3-paramiko python3-pyinotify python3-xdg python3-rencode \
     ncurses-term \
@@ -170,6 +172,7 @@ RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
 COPY bin/edit.sh /usr/bin/edit
 RUN sudo chmod +x /usr/bin/edit
 
+COPY conf/haproxy.conf /etc/haproxy/haproxy.conf
 COPY conf/supervisord.conf /etc/supervisor/supervisord.conf
 COPY bin/emacsd.sh /usr/bin/emacsd
 RUN sudo chmod +x /usr/bin/emacsd

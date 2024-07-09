@@ -13,9 +13,9 @@ if [[ -v PASSWD ]]; then
     htpasswd -bc /opt/emacsd/server/htpasswd $USER $PASSWD
     export RCLONE_PASSWORD="--htpasswd /opt/emacsd/server/htpasswd"
 
-    export XPRA_ADDR="0.0.0.0:9090,auth=env"
+    export XPRA_ADDR="0.0.0.0:49156,auth=env"
 else
-    export XPRA_ADDR="0.0.0.0:9090"
+    export XPRA_ADDR="0.0.0.0:49156"
     echo $USER:$USER | sudo chpasswd
     export RCLONE_PASSWORD=""
 fi
