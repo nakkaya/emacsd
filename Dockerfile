@@ -172,6 +172,7 @@ RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
 COPY bin/edit.sh /usr/bin/edit
 RUN sudo chmod +x /usr/bin/edit
 
+COPY conf/haproxy_paths.map /etc/haproxy/paths.map
 COPY conf/haproxy.conf /etc/haproxy/haproxy.conf
 COPY conf/supervisord.conf /etc/supervisor/supervisord.conf
 COPY bin/emacsd.sh /usr/bin/emacsd
