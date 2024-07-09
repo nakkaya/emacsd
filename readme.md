@@ -17,7 +17,9 @@ or using CLI via SSH,
     ssh -p 9090 core@localhost
 
 unless a password is specified via environment variable SSH password
-will be the same as user `core` by default.
+will be the same as user `core` by default. WebDAV is accessible via
+
+    http://127.0.0.1:9090/disk
 
 There is a sample `docker-compose.yml` file that has the list of
 supported environment variables.
