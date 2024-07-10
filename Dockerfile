@@ -40,8 +40,6 @@ RUN apt-get install \
     sudo \
     git \
     openssh-server \
-    rclone \
-    apache2-utils \
     sslh \
     haproxy \
     python3 python3-dev python3-pip python3-setuptools \
@@ -125,6 +123,19 @@ RUN useradd -u $UID -s /bin/bash $USER && \
 # SSH
 #
 RUN service ssh start
+
+# Dufs
+#
+
+RUN ARCH="$(dpkg --print-architecture)"; \
+    case "$ARCH" in \
+            amd64) URL='https://github.com/sigoden/dufs/releases/download/v0.41.0/dufs-v0.41.0-x86_64-unknown-linux-musl.tar.gz' ;; \
+            arm64) URL='https://github.com/sigoden/dufs/releases/download/v0.41.0/dufs-v0.41.0-aarch64-unknown-linux-musl.tar.gz' ;; \
+    esac; \
+    curl -L -s "${URL}" -o "dufs.tar.gz" && \
+    tar -xzf dufs.tar.gz --directory=/usr/bin && \
+    rm dufs.tar.gz
+
 
 # Build Emacs
 #

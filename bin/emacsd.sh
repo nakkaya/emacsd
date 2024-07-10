@@ -11,13 +11,13 @@ if [[ -v PASSWD ]]; then
     export XPRA_PASSWORD="${PASSWD}"
 
     htpasswd -bc /opt/emacsd/server/htpasswd $USER $PASSWD
-    export RCLONE_PASSWORD="--htpasswd /opt/emacsd/server/htpasswd"
+    export WEBDAV_PASSWORD="-a ${USER}:${PASSWD}@/:rw"
 
     export XPRA_ADDR="0.0.0.0:49156,auth=env"
 else
     export XPRA_ADDR="0.0.0.0:49156"
     echo $USER:$USER | sudo chpasswd
-    export RCLONE_PASSWORD=""
+    export WEBDAV_PASSWORD=""
 fi
 
 if [[ -v FIX_HOME_OWNER ]]; then
