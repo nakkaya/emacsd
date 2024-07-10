@@ -164,7 +164,8 @@ RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
     apt-get autoremove -y && \
     apt-get clean && \
     apt-get autoclean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    rm -f /*emacs-build-deps*
 
 # Run
 #
