@@ -1,5 +1,8 @@
 """emacsd build file."""
 
+# docker build -f Dockerfile --tag nakkaya/emacsd:latest .
+# sudo docker run -e PASSWD=1234 --rm -it -p 0.0.0.0:9191:9090 nakkaya/emacsd:latest # noqa
+
 import os
 from invoke import task
 from datetime import datetime
