@@ -16,8 +16,9 @@ or using CLI via SSH,
 
     ssh -p 9090 core@localhost
 
-unless a password is specified via environment variable SSH password
-will be the same as user `core` by default. WebDAV is accessible via
+unless a password is specified via environment variable by default all
+passwords will be the same as the default username `core`. WebDAV is
+accessible via
 
     http://127.0.0.1:9090/disk
 
