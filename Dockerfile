@@ -184,6 +184,7 @@ RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
 COPY bin/edit.sh /usr/bin/edit
 RUN sudo chmod +x /usr/bin/edit
 
+COPY conf/background.png /usr/share/backgrounds/images/default.png
 COPY conf/haproxy.cfg /etc/haproxy/haproxy.cfg
 COPY conf/supervisord.conf /etc/supervisor/supervisord.conf
 COPY bin/emacsd.sh /usr/bin/emacsd
