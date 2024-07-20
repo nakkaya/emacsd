@@ -13,8 +13,8 @@ fi
 if [ ! -f "/etc/ssh/sshd_config" ]; then
     cat > "/etc/ssh/sshd_config" << 'EOF'
 Port 22
-PermitRootLogin yes
-PasswordAuthentication no
+PermitRootLogin no
+PasswordAuthentication yes
 ChallengeResponseAuthentication no
 UsePAM yes
 PrintMotd no

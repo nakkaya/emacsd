@@ -174,6 +174,12 @@ RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm -f /*emacs-build-deps*
 
+#
+# SSHD
+
+RUN mkdir /var/run/sshd && \
+    chmod 0755 /var/run/sshd
+
 # Run
 #
 
