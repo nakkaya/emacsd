@@ -120,10 +120,6 @@ RUN useradd -u $UID -s /bin/bash $USER && \
     mkdir /storage && \
     chown -R $USER:$USER /storage
 
-# SSH
-#
-RUN service ssh start
-
 # Dufs
 #
 
@@ -184,6 +180,7 @@ RUN apt-get purge $EMACS_BUILD_TOOLS -y && \
 COPY bin/edit.sh /usr/bin/edit
 RUN sudo chmod +x /usr/bin/edit
 
+COPY conf/bashrc /root/.bashrc
 COPY conf/background.png /usr/share/backgrounds/images/default.png
 COPY conf/haproxy.cfg /etc/haproxy/haproxy.cfg
 COPY conf/supervisord.conf /etc/supervisor/supervisord.conf

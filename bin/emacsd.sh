@@ -2,6 +2,33 @@
 
 set -e
 
+# Check for existence of SSH host keys
+host_keys_exists=$(ls /etc/ssh/ssh_host_*_key 2> /dev/null | wc -l)
+
+# If no keys found, generate them
+if [ "$host_keys_exists" -eq 0 ]; then
+    ssh-keygen -A
+fi
+
+if [ ! -f "/etc/ssh/sshd_config" ]; then
+    cat > "/etc/ssh/sshd_config" << 'EOF'
+Port 22
+PermitRootLogin yes
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+UsePAM yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+EOF
+fi
+
+if [ ! -f "/home/$USER/.bashrc" ]; then
+    sudo cp /root/.bashrc "$HOME/.bashrc"
+    sudo chown $(whoami):$(whoami) "$HOME/.bashrc"
+    sudo chmod 644 "$HOME/.bashrc"
+fi
+
 echo fs.inotify.max_user_watches=1048576 | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 
