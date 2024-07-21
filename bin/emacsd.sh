@@ -54,5 +54,8 @@ if [ -f "/tmp/.X42-lock" ]; then
     rm /tmp/.X42-lock
 fi
 
+set -o allexport
+source /etc/environment
+set +o allexport
 
 supervisord
