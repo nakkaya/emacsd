@@ -24,13 +24,15 @@ ENV LANG=en_US.UTF-8 \
                        gcc-10 \
                        g++-10 \
                        libgccjit-10-dev \
-                       libsqlite3-dev" \
+                       libsqlite3-dev\
+                       libtree-sitter-dev" \
     EMACS_BUILD_DEPS="libgccjit0 \
                       libjansson4 \
                       libm17n-0 \
                       libgif7 \
                       libotf1 \
-                      libsqlite3-0"
+                      libsqlite3-0 \
+                      libtree-sitter0"
 
 # Install Packages
 #
@@ -143,6 +145,7 @@ RUN mk-build-deps emacs \
     cd /opt/emacsd/src && \
     ./autogen.sh && \
     ./configure \
+    --with-tree-sitter \
     --without-sound \
     --with-zlib \
     --with-native-compilation \
