@@ -83,7 +83,8 @@ RUN git clone https://github.com/mobile-shell/mosh && \
     cd mosh && \
     ./autogen.sh && ./configure && \
     make && make install && \
-    cd ../ && rm -rf mosh
+    cd ../ && rm -rf mosh && \
+    apt-mark hold $MOSH_BUILD_DEPS
 
 # Install XPRA
 #
