@@ -95,8 +95,7 @@ RUN curl -fsSL https://xpra.org/gpg.asc | \
     tee /etc/apt/sources.list.d/xpra.list && \
     apt-get update  && \
     apt-get install $XPRA_PKGS \
-    -y --no-install-recommends && \
-    apt-mark hold $XPRA_PKGS
+    -y --no-install-recommends
 
 RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/index.html && \
     sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/connect.html && \
@@ -149,9 +148,10 @@ RUN git clone --depth 1 --branch emacs-29.1 https://git.savannah.gnu.org/git/ema
 
 # Cleanup
 #
-RUN apt-get purge $BUILD_TOOLS -y && \
-    apt-mark manual $EMACS_BUILD_DEPS && \
+RUN apt-mark manual $EMACS_BUILD_DEPS && \
     apt-mark manual $MOSH_BUILD_DEPS && \
+    apt-mark manual $XPRA_PKGS && \
+    apt-get purge $BUILD_TOOLS -y && \
     apt-get autoremove -y && \
     apt-get clean && \
     apt-get autoclean && \
