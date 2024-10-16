@@ -53,6 +53,7 @@ ENV USER="core" \
                       libpng-dev" \
     MOSH_BUILD_DEPS="libncurses-dev \
                      libssl-dev \
+                     zlib1g-dev \
                      libprotobuf-dev"
 
 # Install Packages
