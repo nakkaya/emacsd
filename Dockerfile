@@ -53,7 +53,6 @@ ENV USER="core" \
                       libpng-dev" \
     MOSH_BUILD_DEPS="libncurses-dev \
                      libssl-dev \
-                     zlib1g-dev \
                      libprotobuf-dev"
 
 # Install Packages
@@ -84,8 +83,7 @@ RUN git clone https://github.com/mobile-shell/mosh && \
     cd mosh && \
     ./autogen.sh && ./configure && \
     make && make install && \
-    cd ../ && rm -rf mosh && \
-    apt-mark hold $MOSH_BUILD_DEPS
+    cd ../ && rm -rf mosh
 
 # Install XPRA
 #
