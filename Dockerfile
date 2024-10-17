@@ -153,6 +153,8 @@ RUN apt-mark manual $EMACS_BUILD_DEPS && \
     apt-mark manual $XPRA_PKGS && \
     apt-get purge $BUILD_TOOLS -y && \
     apt-get autoremove -y && \
+    # Fix missing libprotobuf-dev
+    apt-get install libprotobuf-dev -y && \
     apt-get clean && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
