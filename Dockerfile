@@ -101,6 +101,7 @@ RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www
     sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www/connect.html && \
     rm -rf /usr/share/xpra/www/*.br && \
     rm -rf /usr/share/xpra/www/*.gz && \
+    echo 'insecure = yes' >> /etc/xpra/html5-client/default-settings.txt && \
     echo 'keyboard = false' >> /etc/xpra/html5-client/default-settings.txt && \
     echo 'floating_menu = false' >> /etc/xpra/html5-client/default-settings.txt && \
     echo 'swap_keys = no' >> /etc/xpra/html5-client/default-settings.txt
