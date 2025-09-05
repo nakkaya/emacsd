@@ -32,14 +32,12 @@ ENV USER="core" \
                  libcairo2-dev \
                  libgtk-3-dev" \
     EMACS_BUILD_DEPS="libgccjit-10-dev \
-                      libjansson4 \
                       libm17n-0 \
                       libgif-dev \
                       libotf-dev \
                       libsqlite3-dev \
                       libtree-sitter-dev \
                       zlib1g \
-                      libjansson-dev \
                       libmailutils-dev \
                       libxml2 \
                       libxft2 \
@@ -120,10 +118,11 @@ RUN ARCH="$(dpkg --print-architecture)"; \
 
 # Build Emacs
 #
-RUN git clone --depth 1 --branch emacs-29.1 https://git.savannah.gnu.org/git/emacs.git /opt/emacsd/src && \
+RUN git clone --depth 1 --branch emacs-30.2 https://git.savannah.gnu.org/git/emacs.git /opt/emacsd/src && \
     cd /opt/emacsd/src && \
     ./autogen.sh && \
     ./configure \
+    --disable-gc-mark-trace \
     --with-tree-sitter \
     --without-sound \
     --with-zlib \

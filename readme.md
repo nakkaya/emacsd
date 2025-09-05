@@ -2,7 +2,7 @@
 
 ![CI Status](https://github.com/nakkaya/emacsd/actions/workflows/main.yml/badge.svg)
 
-A Docker image for running Emacs 29 `--with-native-compilation`. 
+A Docker image for running Emacs 30.
 
     docker run --rm -it -p 9090:9090 nakkaya/emacsd:latest
 
