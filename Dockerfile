@@ -102,7 +102,9 @@ RUN sed -i -e 's/\(<title>\)[^<]*\(<\/title>\)/\1emacsd\2/g' /usr/share/xpra/www
     echo 'insecure = yes' >> /etc/xpra/html5-client/default-settings.txt && \
     echo 'keyboard = false' >> /etc/xpra/html5-client/default-settings.txt && \
     echo 'floating_menu = false' >> /etc/xpra/html5-client/default-settings.txt && \
-    echo 'swap_keys = no' >> /etc/xpra/html5-client/default-settings.txt
+    echo 'swap_keys = no' >> /etc/xpra/html5-client/default-settings.txt && \
+    grep -q 'swap_keys.*isMacOS' /usr/share/xpra/www/js/Client.js && \
+    sed -i 's/this\.swap_keys\s*=\s*Utilities\.isMacOS()/this.swap_keys = false/' /usr/share/xpra/www/js/Client.js
 
 # Dufs
 #
