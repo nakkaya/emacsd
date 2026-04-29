@@ -81,6 +81,9 @@ RUN git clone https://github.com/mobile-shell/mosh && \
     cd mosh && \
     ./autogen.sh && ./configure && \
     make && make install && \
+    mv /usr/local/bin/mosh-server /usr/local/bin/mosh-server.bin && \
+    printf '#!/bin/sh\nunset SSH_CONNECTION\nshift\nexec /usr/local/bin/mosh-server.bin new -i 0.0.0.0 "$@"\n' > /usr/local/bin/mosh-server && \
+    chmod +x /usr/local/bin/mosh-server && \
     cd ../ && rm -rf mosh
 
 # Install XPRA
