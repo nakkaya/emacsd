@@ -121,7 +121,7 @@ RUN ARCH="$(dpkg --print-architecture)"; \
 
 # Build Emacs
 #
-RUN git clone --depth 1 --branch emacs-30.2 https://git.savannah.gnu.org/git/emacs.git /opt/emacsd/src && \
+RUN git clone --depth 1 --branch emacs-30.2 https://github.com/emacs-mirror/emacs.git /opt/emacsd/src && \
     cd /opt/emacsd/src && \
     ./autogen.sh && \
     ./configure \
