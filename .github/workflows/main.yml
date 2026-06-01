@@ -6,33 +6,31 @@ on:
   # schedule:
   #   - cron: '00 00 * * 1'  # Run at 00:00 on Monday.
 
+permissions:
+  contents: read
+
 jobs:
   build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Free Up Space
-        run: sudo rm -rf /usr/local/lib/android && sudo rm -rf /usr/share/dotnet && sudo rm -rf /opt/ghc && sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@master
-        with:
-          platforms: all
-
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@master
-
-      - name: Docker Hub Login
-        run: docker login --username nakkaya --password '${{ secrets.DOCKER_PASSWORD }}'
-
-      - name: Docker GHCR Login
-        run: docker login ghcr.io -u nakkaya --password '${{ secrets.GHCR_PASSWORD }}'
-
-      - name: Install Invoke
-        run: pip install invoke
-
-      - name: Build Image
-        run: invoke build --push
+    uses: docker/github-builder/.github/workflows/build.yml@v1
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      output: image
+      push: true
+      platforms: linux/amd64,linux/arm64
+      sign: false
+      meta-images: |
+        nakkaya/emacsd
+        ghcr.io/nakkaya/emacsd
+      meta-tags: |
+        type=raw,value=latest
+        type=sha
+    secrets:
+      registry-auths: |
+        - registry: docker.io
+          username: nakkaya
+          password: ${{ secrets.DOCKER_PASSWORD }}
+        - registry: ghcr.io
+          username: nakkaya
+          password: ${{ secrets.GHCR_PASSWORD }}

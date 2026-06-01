@@ -19,8 +19,8 @@ ENV USER="core" \
                  pkg-config \
                  texinfo \
                  git \
-                 gcc-10 \
-                 g++-10 \
+                 gcc \
+                 g++ \
                  protobuf-compiler \
                  zlib1g-dev \
                  libxml2-dev \
@@ -31,7 +31,7 @@ ENV USER="core" \
                  xorg-dev \
                  libcairo2-dev \
                  libgtk-3-dev" \
-    EMACS_BUILD_DEPS="libgccjit-10-dev \
+    EMACS_BUILD_DEPS="libgccjit-11-dev \
                       libm17n-0 \
                       libgif-dev \
                       libotf-dev \
@@ -70,14 +70,12 @@ RUN apt-get update && \
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 
-ENV CXX=/usr/bin/g++-10 \
-    CXXFLAGS="-O3 -fomit-frame-pointer" \
-    CC=/usr/bin/gcc-10 \
+ENV CXXFLAGS="-O3 -fomit-frame-pointer" \
     CFLAGS="-O3 -fomit-frame-pointer"
 
 # Install Mosh
 #
-RUN git clone https://github.com/mobile-shell/mosh && \
+RUN git clone --depth 1 --branch mosh-1.4.0 https://github.com/mobile-shell/mosh && \
     cd mosh && \
     ./autogen.sh && ./configure && \
     make && make install && \
