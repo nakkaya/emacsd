@@ -181,6 +181,15 @@ RUN sudo chmod +x /usr/bin/emacsd
 COPY bin/emacsd_client.sh /usr/bin/emacsd_client
 RUN sudo chmod +x /usr/bin/emacsd_client
 
+# Setup Environment
+#
+RUN printf '%s\n' \
+    'LANG=en_US.UTF-8' \
+    'LANGUAGE=en_US.UTF-8' \
+    'LC_ALL=C.UTF-8' \
+    'EMACS_SOCKET_NAME=/opt/emacsd/server/emacsd' \
+    >> /etc/environment
+
 # Setup User
 #
 COPY conf/bashrc /home/$USER/.bashrc
